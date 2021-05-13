@@ -9,15 +9,26 @@ export default function App() {
   
   const [courseGoals,setCourseGoals]=useState([]);
 
+  const [isAddMode,setIsAddMode]=useState(false)
+
   const addGoalHandler= goalTitle =>{
-    setCourseGoals(courseGoals=>[...courseGoals,{key:Math.random().toString(),value:goalTitle}]);
+    setCourseGoals(courseGoals=>[...courseGoals,{id:Math.random().toString(),value:goalTitle}]);
   };
+
+  const deleteGoalHandler=goalID =>{
+    setCourseGoals(courseGoals=>{
+      return courseGoals.filter((goal) => goal.id != goalID)
+    });
+       
+  }
 
   return (
     <View style={styles.screen}>
-      <GoalInput addGoalHandler={addGoalHandler}/>
+                  <Button title='Add new goal' onPress={() => setIsAddMode(true)}/>
+
+      <GoalInput visible={isAddMode} addGoalHandler={addGoalHandler}/>
       <FlatList key={(item,index)=>item.id}  data={courseGoals} renderItem={itemData => 
-        <GoalItem title={itemData.item.value} />}  
+        <GoalItem title={itemData.item.value} id={itemData.item.id} onDelete={deleteGoalHandler}/>}  
       />
     </View>
   );
