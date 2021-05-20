@@ -8,7 +8,7 @@ const GoalInput=props =>{
         setEnteredGoal(enteredText);
       };
 
-      addHandler= () =>{
+    const addHandler= () =>{
         props.addGoalHandler(enteredGoal)
         setEnteredGoal('')
       }
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         margin:10
       },
       buttonContainer:{
-        flexDirection:row,
+        flexDirection:'row',
         justifyContent:'space-between',
         width:'40%'
       },
